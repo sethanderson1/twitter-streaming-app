@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
 
       <main >
-        <h3 style={{margin:0}}>
+        <h3 style={{ margin: 0 }}>
           Real Time Tweet Stream
         </h3>
         <CardList />
