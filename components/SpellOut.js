@@ -15,31 +15,32 @@ const TweetText = styled.div`
         align-self: center;
     `
 
-// const buffer = ['abc', 'def', 'ghi'];
-const buffer = []
-
+const buffer = ['abc', 'def', 'hi'];
+// const buffer = []
+// 
 // TODO: prevent last word of line from becoming first
 // word on next line 
 
 export const SpellOut = () => {
-    const [sentence, setSentence] = useState('');
+    const [sentence, setSentence] = useState('testing testing ');
     // const finished = useRef(false);
     const [count, setCount] = useState(0);
     const [text, setText] = useState('getting Tweets')
     const [connected, setConnected] = useState(false)
+    const [isHidden, setIsHidden] = useState(true)
     console.log('text', text)
 
-    useSocketIOClient((d) => {
-        console.log('d', d)
+    // useSocketIOClient((d) => {
+    //     console.log('d', d)
 
-        if (buffer.length < 200) {
-            buffer.push(d.text)
-        }
-        if (buffer.length >= 3) {
-            setConnected(true)
-        }
-        console.log('buffer', buffer)
-    })
+    //     if (buffer.length < 200) {
+    //         buffer.push(d.text)
+    //     }
+    //     if (buffer.length >= 3) {
+    //         setConnected(true)
+    //     }
+    //     console.log('buffer', buffer)
+    // })
 
     useEffect(() => {
         const nextTweet = buffer.shift() || '';
@@ -49,29 +50,21 @@ export const SpellOut = () => {
     }, [count, connected])
 
     useEffect(() => {
-        let i = 0;
-        let interval = setInterval(() => {
-            console.log('i', i)
-            setSentence(prevSentence => {
-                console.log('prevSentence', prevSentence)
-                return prevSentence + text[i]
-            })
-            if (i >= text.length) {
-                setSentence('')
-                setConnected(prevCount => prevCount + 1)
-                clearInterval(interval)
-            }
-            i++
-        }, 50)
+
+
+        
 
         return () => {
-            clearInterval(interval)
+            // clearInterval(interval)
         }
     }, [text])
 
     return (
         <TweetContainer>
-            <TweetText>{sentence}</TweetText>
+            <TweetText>
+                {text.split('').map((el, i) => <span key={i} style={{visibility:`${isHidden[i]}`}}>{el}</span>)}
+                </TweetText>
+            {/* <TweetText>{sentence}</TweetText> */}
         </TweetContainer>
     )
 }
