@@ -2,12 +2,16 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import styled from 'styled-components';
 import { CardList } from '../components/CardList';
+import { Graph } from '../components/Graph';
+import { D3Testing } from '../components/D3Testing';
 
 const TestDiv = styled.div`
   height: 100px;
   width: 100px;
   background-color: gray;
 `
+
+// TODO: render images as fast as possible
 
 export default function Home() {
   return (
@@ -21,7 +25,9 @@ export default function Home() {
         <h3 style={{ margin: 0 }}>
           Real Time Tweet Stream
         </h3>
-        <CardList />
+        {/* <CardList /> */}
+        <Graph />
+        {/* <D3Testing /> */}
       </main>
 
 
