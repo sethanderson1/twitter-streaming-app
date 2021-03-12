@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { CardList } from '../components/CardList';
 import { Graph } from '../components/Graph';
 import { D3Testing } from '../components/D3Testing';
+import { SpellOut } from '../components/SpellOut';
 
 const TestDiv = styled.div`
   height: 100px;
@@ -26,8 +27,9 @@ export default function Home() {
           Real Time Tweet Stream
         </h3>
         {/* <CardList /> */}
-        <Graph />
+        {/* <Graph /> */}
         {/* <D3Testing /> */}
+        <SpellOut />
       </main>
 
 
