@@ -15,20 +15,23 @@ const TweetText = styled.div`
         align-self: center;
     `
 
-const buffer = ['abc', 'def', 'hi'];
+// const buffer = ['this is a tweet', 'here is another tweet', 'and yet another tweet'];
+const buffer = ['4567','89abc'];
 // const buffer = []
-// 
-// TODO: prevent last word of line from becoming first
-// word on next line 
 
 export const SpellOut = () => {
-    const [sentence, setSentence] = useState('testing testing ');
     // const finished = useRef(false);
-    const [count, setCount] = useState(0);
-    const [text, setText] = useState('getting Tweets')
-    const [connected, setConnected] = useState(false)
-    const [isHidden, setIsHidden] = useState(true)
-    console.log('text', text)
+    // const [count, setCount] = useState(0);
+    const [text, setText] = useState('123')
+    
+    // const [connected, setConnected] = useState(false)
+    // const [isHidden, setIsHidden] = useState(true)
+    console.log('text 0', text)
+
+    const spansRef = useRef([]);
+    spansRef.current = [];
+
+
 
     // useSocketIOClient((d) => {
     //     console.log('d', d)
@@ -42,29 +45,70 @@ export const SpellOut = () => {
     //     console.log('buffer', buffer)
     // })
 
+    // useEffect(() => {
+    //     const nextTweet = buffer.shift() || '';
+    //     console.log('nextTweet', nextTweet)
+
+    //     setText(nextTweet)
+    // }, [count, connected])
+
+    // useEffect(() => {
+
+
+
+
+    //     return () => {
+    //         // clearInterval(interval)
+    //     }
+    // }, [text])
+
+    function addToRefs(el) {
+        console.log('el in addtorefs', el)
+
+        console.log('spansRef.current in addtorefs', spansRef.current)
+        if (el && !spansRef.current.includes(el)) {
+            spansRef.current.push(el)
+        }
+
+    }
+
     useEffect(() => {
-        const nextTweet = buffer.shift() || '';
-        console.log('nextTweet', nextTweet)
+        console.log('text 1 ', text)
+        console.log('spansRef.current in useEffect', spansRef.current)
+        for (let i = 0; i < text.length; i++) {
+            setTimeout(() => {
+                console.log('text.length', text.length)
+                console.log('i', i)
+                console.log(`spansRef.current in timeout i = ${i}`, spansRef.current)
+                spansRef.current[i].style.visibility = 'visible';
+                if (i === text.length - 1) {
+                    console.log('done')
+                    console.log('text 3', text)
+                    spellComplete()
+                }
+            }, 500 * i)
 
-        setText(nextTweet)
-    }, [count, connected])
-
-    useEffect(() => {
-
-
-        
-
-        return () => {
-            // clearInterval(interval)
         }
     }, [text])
+
+    const spellComplete = () => {
+        spansRef.current = []
+        console.log('spansRef.current', spansRef.current)
+        setText(buffer.shift() || '')
+    }
+
+
 
     return (
         <TweetContainer>
             <TweetText>
-                {text.split('').map((el, i) => <span key={i} style={{visibility:`${isHidden[i]}`}}>{el}</span>)}
-                </TweetText>
-            {/* <TweetText>{sentence}</TweetText> */}
+                {text.split('').map((el, i, arr) => {
+                    console.log('el in return', el)
+                    return (
+                        <span key={el.toString()} ref={addToRefs} style={{ visibility: `hidden` }}>{el}</span>
+                    )
+                })}
+            </TweetText>
         </TweetContainer>
     )
 }
