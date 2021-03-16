@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components';
 
 const TweetContainer = styled.div`
@@ -18,13 +18,27 @@ const TweetText = styled.div`
     align-self: center;
 `
 
-export const Card = ({tweet}) => {
+export const Card = ({ tweet }) => {
+    const containerRef = useRef();
+
     console.log('tweet', tweet)
-    const {profilePicUrl, text} = tweet;
+    const { profilePicUrl, text } = tweet;
+
+    // useEffect(() => {
+
+    // }, [])
+
+    const handlePicLoaded = () => {
+        containerRef.current.style.visibility = 'visible';
+        // containerRef.current.style.color = 'black';
+    }
+
     return (
-        <TweetContainer>
-            <ProfileImage src={profilePicUrl} />
-            <TweetText>{text}</TweetText>
+        <TweetContainer ref={containerRef} 
+        style={{ visibility: 'hidden' }}
+        >
+            <ProfileImage onLoad={handlePicLoaded} src={profilePicUrl} />
+            <TweetText >{text}</TweetText>
         </TweetContainer>
     )
 }
