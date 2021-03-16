@@ -7,6 +7,25 @@ const TweetContainer = styled.div`
         display: flex;
     `
 
+const TweetCountsWrap = styled.div`
+        font-size: 2rem;
+        margin: 0 auto;
+        margin-top: 50px;
+
+    `
+
+const TweetCounts = styled.div`
+        font-size: 2rem;
+        display: flex;
+        justify-content: space-between;
+        width: 20vw;
+
+        p {
+            margin:10px;
+        }
+
+    `
+
 export const TermCount = () => {
     // const [data, setData] = useState({});
     // const initialCounts = {
@@ -24,40 +43,32 @@ export const TermCount = () => {
         const { terms, hasTermObj } = d;
         console.log('hasTermObj', hasTermObj)
 
-
         terms.forEach(term => {
             console.log('term', term)
-            
+
             if (hasTermObj[term]) {
                 counts[term] = counts[term] === undefined ? 0 : counts[term] + 1;
             }
 
             console.log('counts22', counts)
-            setCounts({ ...counts })
 
         })
 
-        // setCounts()
-
-
-        // setData(d)
-
-
-
-
-
+        setCounts({ ...counts })
 
     })
 
-    // useEffect(() => {
+    const sortedCountsArr = Object
+        .entries(counts)
+        .sort((a, b) => b[1] - a[1])
 
-    // }, [data])
-
-
-
+    console.log('sortedCountsArr', sortedCountsArr)
 
     return (
         <TweetContainer>
+            <TweetCountsWrap>
+                {sortedCountsArr.map(el => <TweetCounts><p>{el[0]}</p> <p>{el[1]}</p> </TweetCounts>)}
+            </TweetCountsWrap>
 
         </TweetContainer>
     )
