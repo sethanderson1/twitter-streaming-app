@@ -11,7 +11,6 @@ const TweetCountsWrap = styled.div`
         font-size: 2rem;
         margin: 0 auto;
         margin-top: 50px;
-
     `
 
 const TweetCounts = styled.div`
@@ -19,25 +18,15 @@ const TweetCounts = styled.div`
         display: flex;
         justify-content: space-between;
         width: 20vw;
-
         p {
             margin:10px;
         }
-
     `
-
+ 
 export const TermCount = () => {
-    // const [data, setData] = useState({});
-    // const initialCounts = {
-    //     lol: 0,
-    //     omg: 0,
-    //     wtf: 0,
-    // }
+
     const [counts, setCounts] = useState({})
     console.log('counts', counts)
-
-
-
 
     useSocketIOClient((d) => {
         const { terms, hasTermObj } = d;
