@@ -5,6 +5,7 @@ import { CardList } from '../components/CardList';
 import { Graph } from '../components/Graph';
 import { D3Testing } from '../components/D3Testing';
 import { SpellOut } from '../components/SpellOut';
+import { TermCount } from '../components/TermCount';
 
 const TestDiv = styled.div`
   height: 100px;
@@ -30,6 +31,7 @@ export default function Home() {
         {/* <Graph /> */}
         {/* <D3Testing /> */}
         <SpellOut />
+        {/* <TermCount /> */}
       </main>
 
 
