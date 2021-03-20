@@ -93,7 +93,7 @@ export const SpellOut = () => {
                 // console.log(`spansRef.current in timeout i = ${i}`, spansRef.current)
                 // console.log('spansRef', spansRef)
                 if (spansRef.current.length) {
-                    console.log('spansRef', spansRef)
+                    // console.log('spansRef', spansRef)
                     spansRef.current[i].style.visibility = 'visible';
                 }
                 if (i === text.length - 1) {
