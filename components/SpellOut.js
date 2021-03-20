@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components';
 import { useSocketIOClient } from '../hooks/useSocketIOClient';
+import { nanoid } from 'nanoid'
 
 const TweetContainer = styled.div`
         height: 95vh;
@@ -16,41 +17,48 @@ const TweetText = styled.div`
     `
 
 // const buffer = ['this is a tweet', 'here is another tweet', 'and yet another tweet'];
-const buffer = ['4567','89abc'];
-// const buffer = []
-
+// const buffer = ['4567', '89abc'];
+const buffer = []
+let connected = false
 export const SpellOut = () => {
-    // const finished = useRef(false);
-    // const [count, setCount] = useState(0);
-    const [text, setText] = useState('123')
-    
+    console.log('%cSpellOut renders', 'color:purple')
+    const [text, setText] = useState('4344')
     // const [connected, setConnected] = useState(false)
-    // const [isHidden, setIsHidden] = useState(true)
-    console.log('text 0', text)
-
+    // console.log('connected top', connected)
     const spansRef = useRef([]);
     spansRef.current = [];
 
+    // useSocketIOClient((d, connected, setConnected) => {
+    useSocketIOClient((d) => {
+        console.log('d', d.text.length)
+        if (buffer.length < 200) {
+            buffer.push(d.text)
+        }
+        if (buffer.length >= 3) {
+            console.log('buffer.length', buffer.length)
+            console.log('connected in socketclient', connected)
+            if (connected === false) {
+                console.log('%c Set Connected', 'color:green')
+                const nextTweet = buffer.shift() || '';
+                // console.log('nextTweet', nextTweet)
+                setText(nextTweet)
+                // setConnected(true)
+                connected = true;
+            }
+
+        }
 
 
-    // useSocketIOClient((d) => {
-    //     console.log('d', d)
-
-    //     if (buffer.length < 200) {
-    //         buffer.push(d.text)
-    //     }
-    //     if (buffer.length >= 3) {
-    //         setConnected(true)
-    //     }
-    //     console.log('buffer', buffer)
-    // })
+        console.log('buffer', buffer)
+    })
 
     // useEffect(() => {
     //     const nextTweet = buffer.shift() || '';
-    //     console.log('nextTweet', nextTweet)
-
+    //     // console.log('nextTweet', nextTweet)
     //     setText(nextTweet)
-    // }, [count, connected])
+    // }, [connected])
+
+
 
     // useEffect(() => {
 
@@ -63,9 +71,8 @@ export const SpellOut = () => {
     // }, [text])
 
     function addToRefs(el) {
-        console.log('el in addtorefs', el)
-
-        console.log('spansRef.current in addtorefs', spansRef.current)
+        // console.log('el in addtorefs', el)
+        // console.log('spansRef.current in addtorefs', spansRef.current)
         if (el && !spansRef.current.includes(el)) {
             spansRef.current.push(el)
         }
@@ -73,39 +80,46 @@ export const SpellOut = () => {
     }
 
     useEffect(() => {
-        console.log('text 1 ', text)
-        console.log('spansRef.current in useEffect', spansRef.current)
+        // console.log('text 1 ', text)
+        // console.log('spansRef.current in useEffect', spansRef.current)
+        if (!text.length) {
+            setText(buffer.shift() || '')
+        }
         for (let i = 0; i < text.length; i++) {
+            // console.log('i in loop', i)
             setTimeout(() => {
-                console.log('text.length', text.length)
-                console.log('i', i)
-                console.log(`spansRef.current in timeout i = ${i}`, spansRef.current)
-                spansRef.current[i].style.visibility = 'visible';
+                // console.log('text.length', text.length)
+                // console.log('i', i)
+                // console.log(`spansRef.current in timeout i = ${i}`, spansRef.current)
+                // console.log('spansRef', spansRef)
+                if (spansRef.current.length) {
+                    console.log('spansRef', spansRef)
+                    spansRef.current[i].style.visibility = 'visible';
+                }
                 if (i === text.length - 1) {
-                    console.log('done')
-                    console.log('text 3', text)
                     spellComplete()
                 }
-            }, 500 * i)
+            }, 50 * i)
 
         }
     }, [text])
 
     const spellComplete = () => {
-        spansRef.current = []
-        console.log('spansRef.current', spansRef.current)
-        setText(buffer.shift() || '')
+        setTimeout(() => {
+            spansRef.current = []
+            setText(buffer.shift() || '')
+        }, 2000);
     }
-
-
 
     return (
         <TweetContainer>
             <TweetText>
                 {text.split('').map((el, i, arr) => {
-                    console.log('el in return', el)
+                    // console.log('el in return', el)
+                    const nan = nanoid()
+                    // console.log('nan', nan)
                     return (
-                        <span key={el.toString()} ref={addToRefs} style={{ visibility: `hidden` }}>{el}</span>
+                        <span key={nan} ref={addToRefs} style={{ visibility: `hidden` }}>{el}</span>
                     )
                 })}
             </TweetText>

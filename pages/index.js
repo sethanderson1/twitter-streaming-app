@@ -30,8 +30,8 @@ export default function Home() {
         {/* <CardList /> */}
         {/* <Graph /> */}
         {/* <D3Testing /> */}
-        {/* <SpellOut /> */}
-        <TermCount />
+        <SpellOut />
+        {/* <TermCount /> */}
       </main>
 
 
