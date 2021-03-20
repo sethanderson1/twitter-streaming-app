@@ -101,7 +101,7 @@ export const SpellOutWithProfile = () => {
             spansRef.current = []
             const nextTweet = buffer.shift();
             const nextTweetText = nextTweet?.text || '';
-            containerRef.current.style.visibility = 'hiddel';
+            containerRef.current.style.visibility = 'hidden';
             setText(nextTweetText)
             setProfilePicUrl(nextTweet?.profilePicUrl)
 
