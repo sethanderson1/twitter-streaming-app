@@ -12,8 +12,13 @@ const TestDiv = styled.div`
   height: 100px;
   width: 100px;
   background-color: gray;
-`
 
+`
+const Main = styled.main`
+    /* background-color:#1e1d1d; */
+    color: gray;
+
+`
 // TODO: render images as fast as possible
 
 export default function Home() {
@@ -24,7 +29,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main >
+      <Main >
         <h3 style={{ margin: 0 }}>
           Real Time Tweet Stream
         </h3>
@@ -34,7 +39,7 @@ export default function Home() {
         {/* <SpellOut /s> */}
         {/* <TermCount /> */}
         <SpellOutWithProfile />
-      </main>
+      </Main>
 
 
     </div>

@@ -6,6 +6,8 @@ import { nanoid } from 'nanoid'
 const TweetContainer = styled.div`
         height: 95vh;
         display: flex;
+        /* background-color:#1e1d1d; */
+        color:#6a7a8d;
     `
 
 const TweetText = styled.div`
@@ -20,6 +22,9 @@ const ProfileImage = styled.img`
 width: 50%;
 height: fit-content;
 `
+
+// TODO: Implement logic as in Card such that text doenst start before profile pic loaded
+// TODO: maybe combine text and pofile into one state object
 
 // const buffer = ['this is a tweet', 'here is another tweet', 'and yet another tweet'];
 // const buffer = ['4567', '89abc'];
@@ -91,10 +96,12 @@ export const SpellOutWithProfile = () => {
     }, [text])
 
     const spellComplete = () => {
+
         setTimeout(() => {
             spansRef.current = []
             const nextTweet = buffer.shift();
             const nextTweetText = nextTweet?.text || '';
+            containerRef.current.style.visibility = 'hiddel';
             setText(nextTweetText)
             setProfilePicUrl(nextTweet?.profilePicUrl)
 
