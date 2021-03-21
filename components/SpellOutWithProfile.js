@@ -7,7 +7,8 @@ const TweetContainer = styled.div`
         height: 95vh;
         display: flex;
         /* background-color:#1e1d1d; */
-        color:#6a7a8d;
+        color:#f5f5f5;
+        /* color:#6a7a8d; */
     `
 
 const TweetText = styled.div`
@@ -25,6 +26,8 @@ height: fit-content;
 
 // TODO: Implement logic as in Card such that text doenst start before profile pic loaded
 // TODO: maybe combine text and pofile into one state object
+
+// TODO: when buffer goes to zero, have it say waiting for tweets and reset connected to false. rename it to flowing or something.
 
 // const buffer = ['this is a tweet', 'here is another tweet', 'and yet another tweet'];
 // const buffer = ['4567', '89abc'];
@@ -50,7 +53,6 @@ export const SpellOutWithProfile = () => {
             console.log('connected in socketclient', connected)
             if (connected === false) {
                 console.log('%c Set Connected', 'color:green')
-                // const nextTweet = buffer.shift()|| '';
                 // const nextTweet = buffer.shift() || '';
                 const nextTweet = buffer.shift();
                 const nextTweetText = nextTweet.text || '';
@@ -58,19 +60,14 @@ export const SpellOutWithProfile = () => {
                 setProfilePicUrl(nextTweet.profilePicUrl)
                 connected = true;
             }
-
         }
-
-
         console.log('buffer', buffer)
     })
-
 
     function addToRefs(el) {
         if (el && !spansRef.current.includes(el)) {
             spansRef.current.push(el)
         }
-
     }
 
     useEffect(() => {
@@ -80,7 +77,6 @@ export const SpellOutWithProfile = () => {
             console.log('nextTweetText', nextTweetText)
             setText(nextTweetText)
             setProfilePicUrl(nextTweet?.profilePicUrl)
-
         }
         for (let i = 0; i < text.length; i++) {
             setTimeout(() => {
@@ -91,7 +87,6 @@ export const SpellOutWithProfile = () => {
                     spellComplete()
                 }
             }, 50 * i)
-
         }
     }, [text])
 
@@ -104,7 +99,6 @@ export const SpellOutWithProfile = () => {
             containerRef.current.style.visibility = 'hidden';
             setText(nextTweetText)
             setProfilePicUrl(nextTweet?.profilePicUrl)
-
         }, 2000);
     }
 
