@@ -27,10 +27,10 @@ export default function Home() {
         <h3 style={{ margin: 0 }}>
           Real Time Tweet Stream
         </h3>
-        {/* <CardList /> */}
+        <CardList />
         {/* <Graph /> */}
         {/* <D3Testing /> */}
-        <SpellOut />
+        {/* <SpellOut /> */}
         {/* <TermCount /> */}
       </main>
 
